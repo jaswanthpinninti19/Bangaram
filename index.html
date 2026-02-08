@@ -2,125 +2,199 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>For BANGARAM</title>
+<title>For BANGARAM 💜</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
-body {
-  margin: 0;
+body{
+  margin:0;
   font-family: Arial, sans-serif;
-  background: #6a0dad;
-  color: white;
-  text-align: center;
+  background:#6a0dad;
+  color:white;
+  text-align:center;
+  overflow-x:hidden;
 }
 
-.box {
-  max-width: 500px;
-  margin: 40px auto;
-  padding: 20px;
-  background: rgba(255,255,255,0.15);
-  border-radius: 20px;
+.box{
+  max-width:520px;
+  margin:40px auto;
+  padding:20px;
+  background:rgba(255,255,255,0.15);
+  border-radius:20px;
 }
 
-img {
-  width: 100%;
-  border-radius: 15px;
-  margin-top: 15px;
+.hidden{display:none;}
+
+img{
+  width:100%;
+  border-radius:15px;
+  margin:15px 0;
 }
 
-button {
-  display: block;
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  border: none;
-  border-radius: 25px;
-  font-size: 16px;
-  cursor: pointer;
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border:none;
+  border-radius:25px;
+  font-size:16px;
+  cursor:pointer;
 }
 
-.hidden { display: none; }
+.big-heart{
+  font-size:90px;
+  margin:20px 0;
+}
 
-.heart {
-  font-size: 80px;
-  margin: 20px 0;
+.floating-heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:floatUp 6s linear infinite;
+  opacity:0.8;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0);}
+  100%{transform:translateY(-120vh);}
+}
+
+.nav-btn{
+  width:45%;
+  margin:10px;
 }
 </style>
 </head>
 
 <body>
 
+<!-- FLOATING HEARTS -->
+<script>
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="floating-heart";
+  h.innerHTML="💗";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),6000);
+},400);
+</script>
+
+<!-- LOCK -->
 <div class="box" id="lock">
   <h2>🔒 Private</h2>
   <input id="pass" placeholder="Password">
   <button onclick="unlock()">Unlock</button>
 </div>
 
+<!-- QUESTIONS -->
 <div class="box hidden" id="q1">
   <h3>When was our first photo shot?</h3>
   <img src="photo1.jpg">
-  <button onclick="right()">22nd March</button>
+  <button onclick="correct()">22nd March</button>
   <button>23rd March</button>
   <button>24th March</button>
   <button>25th March</button>
 </div>
 
 <div class="box hidden" id="q2">
-  <h3>What happened that day?</h3>
+  <h3>What happened that dayy 🥲?</h3>
   <img src="photo2.jpg">
   <button>Eating food</button>
-  <button>Went to temple</button>
-  <button onclick="right()">An accident</button>
-  <button>None</button>
+  <button>Went to a temple</button>
+  <button onclick="correct()">An accident 🥲</button>
+  <button>None of the above</button>
 </div>
 
 <div class="box hidden" id="q3">
-  <h3>What happened this time?</h3>
+  <h3>What happened this tym 😢?</h3>
   <img src="photo3.jpg">
   <button>Best date</button>
-  <button onclick="right()">Kallu kalipoyayii</button>
-  <button>Took photos</button>
-  <button>None</button>
+  <button onclick="correct()">Kallu kalipoyayii 😢</button>
+  <button>Took best photos</button>
+  <button>None of the above</button>
 </div>
 
 <div class="box hidden" id="q4">
   <h3>Is it our best date ever?</h3>
-  <button onclick="right()">Yes</button>
-  <button onclick="right()">No</button>
-  <button onclick="right()">Tell me on WhatsApp 😉</button>
+  <button onclick="correct()">Yes</button>
+  <button onclick="correct()">No</button>
+  <button onclick="correct()">Tell me on WhatsApp 😉</button>
 </div>
 
 <div class="box hidden" id="q5">
-  <h3>Will you be my Valentine 🤌🏻💝 ?</h3>
-  <button onclick="final()">Yes</button>
-  <button onclick="final()">No</button>
+  <h3>Will you be my Valentine 🤌🏻💝?</h3>
+  <button onclick="finalYes()">Yes</button>
+  <button id="noBtn" onclick="moveNo()">No</button>
 </div>
 
 <div class="box hidden" id="end">
-  <div class="heart">💗</div>
+  <div class="big-heart">💗</div>
   <h2>I love you BANGARAM 💜</h2>
-  <p>Forever yours — Jaswanth</p>
+  <button onclick="showSlides()">One last thing 💜</button>
+</div>
+
+<div class="box hidden" id="slides">
+  <img id="slideImg" src="slide1.jpg">
+  <div>
+    <button class="nav-btn" onclick="prevSlide()">⬅️</button>
+    <button class="nav-btn" onclick="nextSlide()">➡️</button>
+  </div>
+  <p id="finalText" class="hidden">Forever yours — Jaswanth 💜</p>
 </div>
 
 <script>
-let step = 1;
+let step=1;
+let slideIndex=1;
+const totalSlides=8;
 
-function unlock() {
-  if (document.getElementById("pass").value === "07-06-2025") {
-    document.getElementById("lock").classList.add("hidden");
-    document.getElementById("q1").classList.remove("hidden");
+function unlock(){
+  if(document.getElementById("pass").value==="07-06-2025"){
+    lock.classList.add("hidden");
+    q1.classList.remove("hidden");
   }
 }
 
-function right() {
-  document.getElementById("q" + step).classList.add("hidden");
-  step++;
-  document.getElementById("q" + step).classList.remove("hidden");
+function correct(){
+  document.getElementById("q"+step).innerHTML='<div class="big-heart">💘</div>';
+  setTimeout(()=>{
+    document.getElementById("q"+step).classList.add("hidden");
+    step++;
+    document.getElementById("q"+step).classList.remove("hidden");
+  },800);
 }
 
-function final() {
-  document.getElementById("q5").classList.add("hidden");
-  document.getElementById("end").classList.remove("hidden");
+function moveNo(){
+  const btn=document.getElementById("noBtn");
+  btn.style.position="relative";
+  btn.style.left=Math.random()*200-100+"px";
+  btn.style.top=Math.random()*100-50+"px";
+}
+
+function finalYes(){
+  q5.classList.add("hidden");
+  end.classList.remove("hidden");
+}
+
+function showSlides(){
+  end.classList.add("hidden");
+  slides.classList.remove("hidden");
+}
+
+function nextSlide(){
+  if(slideIndex<totalSlides){
+    slideIndex++;
+    slideImg.src="slide"+slideIndex+".jpg";
+  }else{
+    finalText.classList.remove("hidden");
+  }
+}
+
+function prevSlide(){
+  if(slideIndex>1){
+    slideIndex--;
+    slideImg.src="slide"+slideIndex+".jpg";
+  }
 }
 </script>
 
