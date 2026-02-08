@@ -8,7 +8,7 @@
 <style>
 body{
   margin:0;
-  font-family: Arial, sans-serif;
+  font-family:Arial,sans-serif;
   background:#6a0dad;
   color:white;
   text-align:center;
@@ -87,7 +87,7 @@ setInterval(()=>{
   <button onclick="unlock()">Unlock</button>
 </div>
 
-<!-- QUESTIONS -->
+<!-- Q1 -->
 <div class="box hidden" id="q1">
   <h3>When was our first photo shot?</h3>
   <img src="photo1.jpg">
@@ -97,6 +97,7 @@ setInterval(()=>{
   <button>25th March</button>
 </div>
 
+<!-- Q2 -->
 <div class="box hidden" id="q2">
   <h3>What happened that dayy 🥲?</h3>
   <img src="photo2.jpg">
@@ -106,6 +107,7 @@ setInterval(()=>{
   <button>None of the above</button>
 </div>
 
+<!-- Q3 -->
 <div class="box hidden" id="q3">
   <h3>What happened this tym 😢?</h3>
   <img src="photo3.jpg">
@@ -115,6 +117,7 @@ setInterval(()=>{
   <button>None of the above</button>
 </div>
 
+<!-- Q4 -->
 <div class="box hidden" id="q4">
   <h3>Is it our best date ever?</h3>
   <button onclick="correct()">Yes</button>
@@ -122,18 +125,21 @@ setInterval(()=>{
   <button onclick="correct()">Tell me on WhatsApp 😉</button>
 </div>
 
+<!-- Q5 -->
 <div class="box hidden" id="q5">
   <h3>Will you be my Valentine 🤌🏻💝?</h3>
   <button onclick="finalYes()">Yes</button>
   <button id="noBtn" onclick="moveNo()">No</button>
 </div>
 
+<!-- END -->
 <div class="box hidden" id="end">
   <div class="big-heart">💗</div>
   <h2>I love you BANGARAM 💜</h2>
   <button onclick="showSlides()">One last thing 💜</button>
 </div>
 
+<!-- SLIDES -->
 <div class="box hidden" id="slides">
   <img id="slideImg" src="slide1.jpg">
   <div>
@@ -156,9 +162,10 @@ function unlock(){
 }
 
 function correct(){
-  document.getElementById("q"+step).innerHTML='<div class="big-heart">💘</div>';
+  const current=document.getElementById("q"+step);
+  current.innerHTML='<div class="big-heart">💘</div>';
   setTimeout(()=>{
-    document.getElementById("q"+step).classList.add("hidden");
+    current.classList.add("hidden");
     step++;
     document.getElementById("q"+step).classList.remove("hidden");
   },800);
